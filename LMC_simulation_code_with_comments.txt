@@ -1,0 +1,58 @@
+Ant_n	INP		# Ber om n som input
+      	STA n		# Lagrer gitt tall som variabel n
+Sum	LDA b		# Henter startverdi til sum = 0
+      	STA sum		# Lagrer sum
+Loop	LDA n		# Henter n
+	BRZ Esc		# Dersom n = 0, hopp til Esc for å gå ut av loopen
+	SUB a		# Subtraherer 1 fra n
+	STA n		# Lagrer ny n
+ 	INP		# Ber om første tall i summasjon
+	STA b		# Lagrer gitt tall som variabel b
+	LDA sum		# Henter sum
+	ADD b		# Adderer b til sum
+	STA sum		# Lagrer ny sum
+	BRA Loop	# Hopper til toppen av loopen
+Esc	LDA sum		# Henter sum for utskrift
+	OUT		# Skriver ut sum
+	LDA c		# Henter c = 0 for å kunne "flippe" sum til negativ verdi
+	SUB sum		# Sum blir negativ for å anvende BRP for å definere om summen er odd/par
+	STA flip	# Lagrer negativ sum som variabel flip
+Ad	LDA flip	# Henter flip
+	BRP Odd		# Hopper til ODD generering om flip er 0 eller positiv
+	ADD d		# Adderer 2 til flip
+	STA flip	# Lagrer ny flip
+	BRA Ad		# Hopper til Ad for å gjenta prosses, helt til flip er enten 0 eller positiv
+Odd	LDA flip	# Henter flip, som nå enten er 0 eller positiv (isåfall med verdi 1)
+	BRZ Par		# Hopper til PAR generering om flip er 0
+	LDA str		# Henter str for å gjøre et linjeskift i utskriftsvinduet
+	OTC		# Skriver ut kommandoen (linjeskift)
+	LDA O		# Henter variabel O
+      	OTC		# Skriver ut O
+      	LDA D		# Henter variabel D
+      	OTC		# Skriver ut D
+      	LDA D		# Henter variabel D
+      	OTC		# Skriver ut D
+      	HLT		# Stopper simulering
+Par	LDA str		# Tilsvarende prossess for PAR generering som for ODD
+	OTC
+	LDA P
+	OTC
+	LDA A
+      	OTC
+      	LDA R
+      	OTC
+      	HLT
+
+n DAT			# n defineres som en variabel
+sum DAT			# sum defineres som en variabel
+a DAT 1			# a defineres som en variabel med verdi 1
+b DAT 0			# b defineres som en variabel med verdi 0
+c DAT 0			# c defineres som en variabel med verdi 0
+d DAT 2			# d defineres som en variabel med verdi 2
+flip DAT		# flip defineres som en variabel
+str DAT 10		# str defineres som en variabel for linjeskift
+O DAT 79		# O defineres som en variabel for bokstaven O
+D DAT 68		# D defineres som en variabel for bokstaven D
+P DAT 80		# P defineres som en variabel for bokstaven P
+A DAT 65		# A defineres som en variabel for bokstaven A
+R DAT 82		# R defineres som en variabel for bokstaven R
